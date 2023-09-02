@@ -1,0 +1,287 @@
+<div class="   bg-white rounded">
+  <div class="border  ">
+    <form name="form" #f="ngForm" novalidate>
+
+      <div class="">
+
+
+        <!-- Material form register -->
+        <div class="card">
+
+          <h5 class="card-header info-color white-text text-center py-4">
+            <strong>Add/edit game</strong>
+          </h5>
+          <p></p>
+          <!--Card content-->
+          <div class="card-body px-lg-5 pt-0">
+
+            <!-- Form -->
+            <form class="text-center" style="color: #757575;" action="#!">
+
+              <div class="form-row">
+                <div class="col">
+
+                  <!-- Title -->
+                  <div class="md-form">
+                    <label>
+                      <input name="title" type="text" class="form-control" required aria-describedby="titleGameHelp"
+                             placeholder="Title"
+                             [ngClass]="{ 'is-invalid': gameTitle.invalid && (gameTitle.dirty || gameTitle.touched)}"
+                             [(ngModel)]="title" #gameTitle="ngModel"/>
+                    </label>
+                    <div *ngIf="gameTitle.invalid && (gameTitle.dirty || gameTitle.touched)" class="invalid-feedback">
+                      <div *ngIf="gameTitle.errors.required">
+                        Title mandatory.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col">
+
+                  <!-- Serial key -->
+                  <div class="md-form">
+                    <input name="serialKey" type="text" class="form-control" required aria-describedby="serialKeyHelp"
+                           placeholder="Serial key"
+                           [ngClass]="{ 'is-invalid': gameSerial.invalid && (gameSerial.dirty || gameSerial.touched)}"
+                           [(ngModel)]="idSerial" #gameSerial="ngModel"/>
+                    <div *ngIf="gameSerial.invalid && (gameSerial.dirty || gameSerial.touched)"
+                         class="invalid-feedback">
+                      <div *ngIf="gameSerial.errors.required">
+                        Serial key mandatory.
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                <!-- Publisher -->
+                <div class="md-form mt-0">
+                  <!--                <input type="email" id="materialRegisterFormEmail" class="form-control">-->
+                  <!--                <label for="materialRegisterFormEmail">Publisher</label>-->
+                  <label>
+                    <input name="gameStudioDevs" type="text" class="form-control" required
+                           aria-describedby="gameStudioHelp" placeholder="Publisher"
+                           [ngClass]="{ 'is-invalid': gameStudioDevs.invalid && (gameStudioDevs.dirty || gameStudioDevs.touched)}"
+                           [(ngModel)]="gameStudio" #gameStudioDevs="ngModel"/>
+                  </label>
+
+                  <div *ngIf="gameStudioDevs.invalid && (gameStudioDevs.dirty || gameStudioDevs.touched)"
+                       class="invalid-feedback">
+                    <div *ngIf="gameStudioDevs.errors.required">
+                      Publisher mandatory.
+                    </div>
+                  </div>
+
+                </div>
+
+
+                <div class="md-form">
+                  <label>
+                    <input autocomplete="false" name="year" type="number" class="form-control" required
+                           aria-describedby="yearGameHelp" placeholder="Year"
+                           [ngClass]="{ 'is-invalid': gameYear.invalid && (gameYear.dirty || gameYear.touched)}"
+                           [(ngModel)]="year"
+                           #gameYear="ngModel"/>
+                  </label>
+
+                  <div *ngIf="gameYear.invalid && (gameYear.dirty || gameYear.touched)" class="invalid-feedback">
+                    <div *ngIf="gameYear.errors.required">
+                      Release year mandatory.
+                    </div>
+                  </div>
+
+                </div>
+
+                <!-- Stock -->
+                <div class="md-form">
+                  <label>
+                    <input autocomplete="false" name="stock" type="number" class="form-control" required
+                           aria-describedby="stockGameHelp" placeholder="Stock"
+                           [ngClass]="{ 'is-invalid': gameStock.invalid && (gameStock.dirty || gameStock.touched)}"
+                           [(ngModel)]="stock"
+                           #gameStock="ngModel"/>
+                  </label>
+
+                  <div *ngIf="gameStock.invalid && (gameStock.dirty || gameStock.touched)" class="invalid-feedback">
+                    <div *ngIf="gameStock.errors.required">
+                      Stock mandatory.
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+
+              <div class="">
+                <div class="">
+                  <!-- developers  -->
+                  <div class="md-form mt-0">
+                    <input id="developer" name="developer" type="text" class="form-control"
+                           aria-describedby="gameDeveloperHelp"
+                           placeholder="Developers"
+                           [ngClass]="{ 'is-invalid': tempDevelopers.size == 0 && (gameDeveloper.dirty || gameDeveloper.touched)}"
+                           [(ngModel)]="developer" #gameDeveloper="ngModel" (keydown.enter)="addDeveloper(developer)"/>
+                    <div *ngIf="tempDevelopers.size == 0 && (gameDeveloper.dirty || gameDeveloper.touched)"
+                         class="invalid-feedback">
+                      <div *ngIf="tempDevelopers.size == 0">
+                        Developers mandatory.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm">
+                      <div class="input-group input-group-sm mb-1">
+                        <button class="btn" (click)="addDeveloper(developer)">
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm">
+                      <div class="text-dark d-inline" *ngFor="let developer of tempDevelopers;">
+                        <div class="mb-1 d-inline">
+                          <div class="col-sm d-inline">
+                            <button class="btn btn-sm btn-outline-danger mb-2 shadowed"
+                                    (click)="deleteDeveloper(developer)">{{developer}}
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="">
+                  <!-- category -->
+                  <div class="md-form mt-0">
+                    <input id="category" name="category" type="text" class="form-control"
+                           aria-describedby="gameCategoryHelp"
+                           placeholder="Categories"
+                           [ngClass]="{ 'is-invalid': tempCategories.size == 0 && (gameCategory.dirty || gameCategory.touched)}"
+                           [(ngModel)]="category" #gameCategory="ngModel" (keydown.enter)="addCategory(category)"/>
+
+                    <div *ngIf="tempCategories.size == 0 && (gameCategory.dirty || gameCategory.touched)"
+                         class="invalid-feedback">
+                      <div *ngIf="tempCategories.size == 0">
+                        Category mandatory.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm">
+                  <div class="input-group input-group-sm mb-1">
+                    <button class="btn" (click)="addCategory(category)"></button>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm">
+                <div class="text-dark d-inline" *ngFor="let category of tempCategories">
+                  <div class="mb-1 d-inline">
+                    <div class="col-sm d-inline">
+                      <button class="btn btn-sm btn-outline-danger mb-2 shadowed"
+                              (click)="deleteCategory(category)">{{category}}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="">
+                <div class="input-group input-group-sm mb-1">
+                  <label for="description"></label><textarea id="description" name="description" type="text"
+                                                             class="form-control scrollbar-custom-style"
+                                                             required
+                                                             aria-describedby="descriptionGameHelp"
+                                                             placeholder="Description"
+                                                             [ngClass]="{ 'is-invalid': gameDescription.invalid && (gameDescription.dirty || gameDescription.touched)}"
+                                                             [(ngModel)]="description"
+                                                             #gameDescription="ngModel"></textarea>
+                </div>
+                <div class="input-group input-group-sm mb-1">
+                  <div *ngIf="gameDescription.invalid && (gameDescription.dirty || gameDescription.touched)"
+                       class="invalid-feedback">
+                    <div *ngIf="gameDescription.errors.required">
+                      Description mandatory.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="md-form">
+                <span
+                  class="btn"
+                  id=""> {{selectedFile ? 'Chose another image:' : 'Select image (*required):'}}
+                  <input #fileInput
+                         class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0"
+                         id="gameImage" type="file" height="50px"
+                         (change)="fileChangeEvent($event)"/>
+              </span>
+                <img [src]="this.imgURL" height="38" *ngIf="imgURL">
+              </div>
+
+              <div class="md-form">
+                <button id="editGameButton" [disabled]="f.form.invalid || !this.selectedFile"
+                        class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0"
+                        (click)="editGame()" *ngIf="editedGame">Save
+                </button>
+
+                <button id="addGameButton" [disabled]="f.form.invalid || !this.selectedFile"
+                        class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit"
+                        (click)="uploadGame()" *ngIf="!editedGame">Add
+                </button>
+              </div>
+
+              <!--              &lt;!&ndash; Add button &ndash;&gt;-->
+              <!--              <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit"-->
+              <!--              >Add game</button>-->
+              <hr>
+            </form>
+            <!-- Form -->
+          </div>
+        </div>
+        <!-- Material form register -->
+
+      </div>
+
+    </form>
+
+    <div class="row" *ngIf="selectedFile">
+      <div class="col-sm">
+        <image-cropper
+          [imageChangedEvent]="imageChangedEvent"
+          [maintainAspectRatio]="false"
+          [aspectRatio]="6/9"
+          [resizeToWidth]="1024"
+          format="jpeg"
+          (imageCropped)="imageCropped($event)"
+          (imageLoaded)="imageLoaded()"
+          (cropperReady)="cropperReady()"
+          (loadImageFailed)="loadImageFailed()"
+        ></image-cropper>
+      </div>
+      <div class="col-sm text-center align-self-center" [style.width.px]="250">
+        <img [src]="croppedImage" width="250"/>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+

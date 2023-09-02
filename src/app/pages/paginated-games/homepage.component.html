@@ -1,0 +1,172 @@
+<app-navbar></app-navbar>
+<div class="container-fluid row" style="float: right">
+  <div class="col-auto" >
+    <div class="card mt-3 ml-5 mr-5 shadowed sticky-top">
+      <div class="card-header bg-blue shadowed text-center font-weight-bold">
+        Categories
+      </div>
+      <ul class="list-group list-group-flush overflow-auto scrollbar-custom-style" >
+        <li (click)="categorySelected(allCategories)" [ngClass]="{'active':catValue==''}"
+            class="list-group-item">{{allCategories}}</li>
+        <li *ngFor="let category of uniqueCategories" (click)="categorySelected(category)"
+            [ngClass]="{'active':catValue==category}" class="list-group-item">{{category}}</li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-sm">
+    <div class="d-flex flex-column">
+      <div class="mt-3 flex-fill flex-grow-1 zIndex">
+        <input [ngClass]="{'form-no-bottom':value&&gameResponsePageList1.nrOfElements > 0}" [(ngModel)]="value"
+               class="form-control shadow-none" type="text" placeholder="Search" aria-label="Search"
+               (ngModelChange)="inputSearchChanged()">
+        <div *ngIf=" value != '' && value && flagSearch && gameResponsePageList1.nrOfElements > 0">
+          <table class="bg-white position-absolute zIndex" style="width: 97.7%">
+            <tr class="btn-link" [routerLink]="['../game-details']" [queryParams]="{'gameId': game.id}"
+                *ngFor="let game of searchedGames | paginate: { id: 'searchPagination', itemsPerPage: 5, currentPage: q, totalItems: gameResponsePageList1.nrOfElements}">
+              <td style="width: 100%">{{game.title}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div *ngIf="gameResponsePageList" class="container-widget justify-content-around mt-3">
+      <div
+        *ngFor="let game of games | paginate: { id: 'gridPagination',itemsPerPage: 3, currentPage: p,totalItems: gameResponsePageList.nrOfElements}">
+        <div>
+          <app-homepage-icon (gameRented)="showRented($event)" class="widget" [user]="currentUser"
+                             [game]="game"></app-homepage-icon>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="formData">
+      {{formData}}
+    </div>
+    <div class="text-center">
+      <pagination-controls id="gridPagination" (pageChange)="pageGridChanged($event)"></pagination-controls>
+    </div>
+
+    <h5 *ngIf="preferenceGames.length>0" class="bg-blue text-right p-2">Suggestions based on your preferences</h5>
+
+    <div *ngIf="preferenceGames.length>0" class="container-widget justify-content-around mt-3">
+      <div
+        *ngFor="let game of preferenceGames | paginate: { id: 'preferredPagination',itemsPerPage: 3, currentPage: r,totalItems: favoritePaginatedGames.nrOfElements}">
+        <div>
+          <app-homepage-icon (gameRented)="showRented($event)" class="widget" [user]="currentUser"
+                             [game]="game"></app-homepage-icon>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="formData">
+      {{formData}}
+    </div>
+    <div *ngIf="preferenceGames.length>0" class="text-center">
+      <pagination-controls id="preferredPagination" (pageChange)="preferencesChanged($event)"></pagination-controls>
+    </div>
+  </div>
+
+</div>
+
+<!-- Footer -->
+<footer class="page-footer font-small mdb-color lighten-3 pt-4">
+
+  <!-- Footer Links -->
+  <div class="container text-center text-md-left">
+    <div></div>
+    <br>
+    <br>
+    <!-- Grid row -->
+    <div class="row">
+
+      <!-- Grid column -->
+      <div class="col-md-4 col-lg-6 mr-auto my-md-4 my-0 mt-4 mb-1">
+
+
+        <!-- Content -->
+        <h5 class="font-weight-bold text-uppercase mb-4">Work hard, play harder</h5>
+        <p>We believe in a passionate community and the power of teamwork.</p>
+        <p>Our belief is that we can create a circle of trust amongst employees. This is why we will keep our
+        content open to everyone and we impose almost no restrictions. We strive to improve the workplace!</p>
+
+      </div>
+      <!-- Grid column -->
+
+      <hr class="clearfix w-100 d-md-none">
+
+      <!-- Grid column -->
+      <div class="col-md-2 col-lg-2 mx-auto my-md-4 my-0 mt-4 mb-1">
+
+        <!-- Links -->
+        <h5 class="font-weight-bold text-uppercase mb-4">About</h5>
+
+        <ul class="list-unstyled">
+          <li>
+            <p>
+              <a [routerLink]="['partners']" (click)="seeCompanies()" class="  ">
+                <h5 style="">Partners <i class="fa fa-angle-double-right"></i></h5>
+              </a>
+            </p>
+          </li>
+          <li>
+            <p>
+            </p>
+          </li>
+        </ul>
+
+      </div>
+      <!-- Grid column -->
+
+      <hr class="clearfix w-100 d-md-none">
+
+      <!-- Grid column -->
+      <div class="col-md-4 col-lg-3 mx-auto my-md-4 my-0 mt-4 mb-1">
+
+        <!-- Contact details -->
+        <h5 class="font-weight-bold text-uppercase mb-4">Address</h5>
+
+        <ul class="list-unstyled">
+          <li>
+            <p>
+              <i class="fa fa-home mr-3"></i> Bucharest, Romania</p>
+          </li>
+          <li>
+            <p>
+              <i class="fa fa-envelope mr-3"></i> dizertatie2023@gmail.com</p>
+          </li>
+          <li>
+            <p>
+              <i class="fa fa-phone mr-3"></i>  + 07 288 967 98</p>
+          </li>
+
+        </ul>
+
+      </div>
+      <!-- Grid column -->
+
+      <hr class="clearfix w-100 d-md-none">
+
+      <!-- Grid column -->
+      <div class="col-md-2 col-lg-2 text-center mx-auto my-4">
+
+      </div>
+      <!-- Grid column -->
+
+    </div>
+    <!-- Grid row -->
+
+  </div>
+  <!-- Footer Links -->
+
+
+</footer>
+<!-- Footer -->
+
+
+
+
+
+
+
+

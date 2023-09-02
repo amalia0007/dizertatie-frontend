@@ -1,0 +1,153 @@
+.listOfGames{
+  display: flex;
+  justify-content: space-between;
+}
+
+.recommend{
+  text-align: center
+}
+
+.example-additional-selection {
+  opacity: 0.75;
+  font-size: 0.75em;
+}
+
+
+.recommend p{
+  font-size: large;
+  font-family: OCR A Std, monospace;
+  font-weight: 900
+}
+
+
+.search{
+  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+}
+.active-pink-4 input[type=text]:focus:not([readonly]) {
+  border: 1px solid #f48fb1;
+  box-shadow: 0 0 0 1px #f48fb1;
+}
+.active-pink-3 input[type=text] {
+  border: 1px solid #f48fb1;
+  box-shadow: 0 0 0 1px #f48fb1;
+}
+.active-purple-4 input[type=text]:focus:not([readonly]) {
+  border: 1px solid #ce93d8;
+  box-shadow: 0 0 0 1px #ce93d8;
+}
+.active-purple-3 input[type=text] {
+  border: 1px solid #ce93d8;
+  box-shadow: 0 0 0 1px #ce93d8;
+}
+.active-cyan-4 input[type=text]:focus:not([readonly]) {
+  border: 1px solid #4dd0e1;
+  box-shadow: 0 0 0 1px #4dd0e1;
+}
+.active-cyan-3 input[type=text] {
+  border: 1px solid #4dd0e1;
+  box-shadow: 0 0 0 1px #4dd0e1;
+}
+
+pagination-controls /deep/ ul.ngx-pagination {
+  justify-content: center;
+  justify-items: center;
+}
+
+.card{
+  height: 630px;
+  top:92px;
+  width: 350px;
+  font-family: OCR A Std, monospace;
+
+}
+
+.active{
+  background-color: #ffffff;
+  color: black;
+  font-size: 20px;
+  font-family: OCR A Std, monospace;
+  border-color: lightgrey;
+}
+
+.card-header{
+  cursor: pointer;
+}
+@media only screen and (max-width: 600px){
+  .card{
+    display: none;
+  }
+}
+
+
+.container-widget {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.list-group-item:hover{
+  background-color: #f5a23e;
+  color: black;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.container-fluid {
+}
+
+
+.button-plus {
+  font-size: 60px;
+  color: grey;
+}
+
+.widget {
+  display: flex;
+  margin-bottom: 2.5rem;
+}
+
+.canvasjs-chart-credit{
+  display: none!important;
+}
+
+pagination-controls ::ng-deep .ngx-pagination .current{
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  background-color: #0077EA;
+}
+.form-no-bottom{
+  border-color: #dee2e6;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+
+table {
+  border: 1px solid #dee2e6;
+  border-collapse: separate;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-top:0;
+  overflow: hidden;
+}
+
+.zIndex{
+  background-color: white;
+  z-index: 2;
+}
+
+.btn-link{
+  color:black;
+  cursor: pointer;
+}
+
+tr:hover{
+  background-color: #0077EA;
+  text-decoration: none;
+  color: white;
+}
+
+
+
+
+
+

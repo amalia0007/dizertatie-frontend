@@ -1,0 +1,74 @@
+
+
+
+
+<!--*******************************************************-->
+<nav class="navbar navbar-expand-md navbar-dark bg-blue  shadowed ">
+  <a class="navbar-brand">
+    <span class="logo " ><img id="logo" src="../../assets/images/icon-platform.jpeg">&nbsp;B i g - O<br></span>
+  </a>
+
+  <div class="container ">
+
+    <button class="navbar-toggler navbar-toggler-right border-0" type="button" data-toggle="collapse"
+      data-target="#navbar16" (click)="toggleNavbar()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar16" [ngClass]="{ 'show': navbarOpen }">
+      <ul class="navbar-nav ml-auto">
+
+        <li class="nav-item mt-3 mb-3"><a routerLink="/homepage"
+            class="btn-small btn-outline-primary waves-effect " style="color: papayawhip" routerLinkActive="active">
+            <i class="fa fa-home"></i>Homepage</a></li>
+
+        <li class="nav-item mt-3 mb-3">
+          <a class="btn-small btn-outline-primary waves-effect" style="color: papayawhip" routerLink="/top-rated-games"
+             routerLinkActive="active">Best rated</a>
+        </li>
+
+        <li class="nav-item mt-3 mb-3">
+          <a class="btn-small btn-outline-primary waves-effect" routerLink="/top-rented-games"
+             routerLinkActive="active" style="color: papayawhip">Most played</a>
+        </li>
+
+        <li class="nav-item mt-3 mb-3" *ngIf="isAdmin()">
+          <a class="btn-small btn-outline-primary waves-effect" routerLink="/admin-dashboard"
+             routerLinkActive="active" style="color: papayawhip">Admin dashboard</a>
+        </li>
+
+<!--        <li class="nav-item mt-3 mb-3" ngbDropdown>-->
+<!--          <a class="btn-small btn-outline-primary waves-effect" ngbDropdownToggle id="navbarDropdown3">-->
+<!--            Honorable mentions-->
+<!--          </a>-->
+<!--          <div ngbDropdownMenu aria-labelledby="navbarDropdown4"-->
+<!--            class="dropdown-menu dropdown-menu-right mt-3 ">-->
+<!--            <a class="dropdown-item " routerLink="/top-rated-games"-->
+<!--              routerLinkActive="active">Best by ratings</a>-->
+<!--            <a class="dropdown-item " routerLink="/top-rented-games"-->
+<!--              routerLinkActive="active">Most played</a>-->
+<!--          </div>-->
+<!--        </li>-->
+
+
+        <li *ngIf="UserData" class="nav-item mt-3 mb-3" ngbDropdown>
+          <a class="btn-small btn-outline-primary waves-effect " ngbDropdownToggle id="navbarDropdown2">
+            <img *ngIf="UserData.img;else noUser" class="rounded-circle"
+              [src]="'data:image/jpeg;base64,'+UserData.img.pic" width="25" height="25">
+            <ng-template #noUser>
+              <i class="fa fa-user fa-fw"></i>
+            </ng-template>
+            {{" " + email}}
+          </a>
+          <div ngbDropdownMenu aria-labelledby="navbarDropdown2"
+            class="dropdown-menu dropdown-menu-right mt-3 ">
+<!--            <a *ngIf="UserData.admin" class="dropdown-item  " routerLink="/admin-dashboard"-->
+<!--                                      routerLinkActive="active">Administration panel</a>-->
+            <a class="dropdown-item  " routerLink="/rented-games"
+              routerLinkActive="active">My account</a>
+            <a class="dropdown-item text-danger " href="#" (click)="logout()">Logout</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

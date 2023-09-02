@@ -1,0 +1,7 @@
+#chartContainer{
+touch-action: none;
+}
+
+.container-fluid{
+  width: 90%;
+}

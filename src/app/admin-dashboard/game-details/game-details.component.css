@@ -1,0 +1,29 @@
+.first-col{
+  margin-bottom: -10px;
+}
+
+.star {
+  position: relative;
+  display: inline-block;
+  font-size: 2rem;
+  color: #d3d3d3;
+}
+.full {
+  color: #E7711B;
+}
+.half {
+  position: absolute;
+  display: inline-block;
+  overflow: hidden;
+  color: #E7711B;
+}
+
+
+.star-small {
+  position: relative;
+  display: inline-block;
+  font-size: 1rem;
+  color: #d3d3d3;
+}
+
+

@@ -1,0 +1,79 @@
+<div class="content-game-detail">
+  <div class="row">
+    <div class="col-sm-auto">
+      <img class="shadowed" [src]="'data:image/jpeg;base64,'+selectedGames.img.pic" height="250">
+    </div>
+    <div class="col-sm">
+      <h4>{{selectedGames.title}}</h4>
+      <div class="rating d-flex align-items-center mr-2 ">
+        <div class="mr-2 font-weight-bold">{{selectedGames.averageStars.toFixed(1)}}</div>
+        <ng-template #t let-fill="fill">
+        <span class="star" [class.full]="fill === 100">
+          <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+        </span>
+        </ng-template>
+        <ngb-rating class="mb-1 mr-1" [(rate)]="selectedGames.averageStars" [starTemplate]="t" [readonly]="true"
+                    max="5"></ngb-rating>
+        <div class="d-inline-flex font-weight-bold">Serial key: {{selectedGames.idSerial}}</div>
+      </div>
+      <div>
+        <label class="font-weight-bold" for="developers" style="white-space: pre">Developers: </label>
+        <div id="developers" *ngFor="let developer of selectedGames.developers; let isLast=last" class="d-inline-flex"
+             style="white-space:pre">{{developer.name}}{{isLast ? '' : ', '}}</div>
+      </div>
+      <div>
+        <label class="font-weight-bold" for="categories" style="white-space: pre">Categories: </label>
+        <div id="categories" *ngFor="let category of selectedGames.categories; let isLast=last" class="d-inline-flex"
+             style="white-space:pre">{{category.name}}{{isLast ? '' : ', '}}</div>
+      </div>
+      <div>
+        <label class="font-weight-bold" for="gameStudio" style="white-space: pre">Publisher: </label>
+        <div id="gameStudio" class="d-inline-flex" style="white-space:pre">{{selectedGames.gameStudio}}</div>
+      </div>
+      <div>
+        <label class="font-weight-bold" for="publishingYear" style="white-space: pre">Release year: </label>
+        <div id="publishingYear" class="d-inline-flex" style="white-space:pre">{{selectedGames.year}}</div>
+      </div>
+      <div>
+        <label class="font-weight-bold" for="stock" style="white-space: pre">Stock: </label>
+        <div id="stock" class="d-inline-flex" style="white-space:pre">{{selectedGames.stock}}</div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="overflow-auto m-3 text-justify scrollbar-custom-style"
+         style="height: 150px;padding-right: 10px;text-indent: 20px">{{selectedGames.description}}</div>
+  </div>
+
+  <div class="card overflow-auto scrollbar-custom-style p-3" style="height: 250px">
+    <div class="row" *ngFor="let rating of selectedGames.gameRatings; index as i">
+      <div class="col-sm-auto text-center first-col m-auto">
+        <img *ngIf="rating.user.img; else noImg" class="rounded-circle mr-2 "
+             [src]="'data:image/jpeg;base64,'+rating.user.img['pic']" height="40"
+             width="40">
+        <ng-template #noImg>
+          <img class="rounded-circle mr-2 " src="../../../assets/images/no-photo-profile.png" height="40" width="40">
+        </ng-template>
+        <div class="flex-row">
+          <div class="mr-2 d-inline-flex small align-items-center">{{rating.value}}</div>
+          <ng-template #t let-fill="fill">
+        <span class="star-small" [class.full]="fill === 100">
+          <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+        </span>
+          </ng-template>
+          <ngb-rating class="mb-1 mr-1 ngb-small" [(rate)]="rating.value" [starTemplate]="t"
+                      [readonly]="true"
+                      max="5"></ngb-rating>
+        </div>
+      </div>
+      <div class="col-sm">
+        <div
+          class="font-weight-bold mt-auto">{{rating.date + " - " + rating.user['firstName'] + " " + rating.user['lastName']}}</div>
+        <blockquote class="blockquote-footer text-justify">{{rating.description}}</blockquote>
+      </div>
+      <div class="col-sm-auto m-auto">
+        <button class="btn btn-rounded btn-outline-info btn-secondary my-4 waves-effect z-depth-0" style="background-color: white" (click)="deleteGameDialog(i)">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>

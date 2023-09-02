@@ -1,0 +1,56 @@
+<div class="container login shadowed">
+  <button type="button" class="close" aria-label="Close" (click)="dismiss()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <div class="row">
+    <div class="col-md-3 login-left">
+      <img src="../../../assets/images/icon-platform.jpeg"/>
+    </div>
+    <div class="col-md-9 login-right shadowed">
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+          <h3 class="login-heading">Activate account</h3>
+          <div class="row login-form">
+            <div class="col-md">
+
+              <form name="form" #f="ngForm" novalidate>
+
+                <div class="col-sm">
+                  <div class="input-group input-group-sm mb-1">
+                    <input name="codeReceived" type="text" class="form-control" required
+                           aria-describedby="codeReceivedHelp"
+                           placeholder="Code received by email"
+                           [ngClass]="{ 'is-invalid': codeReceived.invalid && (codeReceived.dirty || codeReceived.touched)}"
+                           [(ngModel)]="code" #codeReceived="ngModel"/>
+                  </div>
+                  <div class="input-group input-group-sm mb-1">
+                    <div *ngIf="codeReceived.invalid && (codeReceived.dirty || codeReceived.touched)"
+                         class="invalid-feedback">
+                      <div *ngIf="codeReceived.errors.required">
+                        Reset code is required.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="col-sm">
+                  <button (click)="activateAccount()" [disabled]="loading" class="btnLogin shadowed mb-2">
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                    Activate
+                  </button>
+                  <button (click)="resendVerificationEmail()" class="btn btn-link form-control">
+                    <span *ngIf="loadingForCode" class="spinner-border spinner-border-sm mr-1 text-primary"></span>
+                    Resend your code?
+                  </button>
+                </div>
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

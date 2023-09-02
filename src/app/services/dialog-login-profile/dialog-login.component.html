@@ -1,0 +1,57 @@
+<div class="container login">
+  <button type="button" class="close" aria-label="Close" (click)="dismiss()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <div class="row">
+    <div class="col-md-3 login-left">
+      <img src="../../../assets/images/icon-platform.jpeg"/>
+      <h3>Big-0</h3>
+      <button type="submit" class="btnLogin btn-dark shadowed style" style="size: 20px" (click)="sendToRegister()">Register</button>
+
+      <br/>
+    </div>
+
+    <div class="col-md-9 login-right shadowed">
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+          <h3 class="login-heading">Login</h3>
+
+          <div class="row login-form">
+            <div class="col-md">
+
+              <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+                <div class="form-group">
+                  <label for="username"></label><input id="username" type="text" placeholder="Email" formControlName="username" class="form-control"
+                                                       [ngClass]="{ 'is-invalid': submitted && formFields.username.errors }"/>
+                  <div *ngIf="submitted && formFields.username.errors" class="invalid-feedback">
+                    <div *ngIf="formFields.username.errors.required">Username field is empty</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="password"></label><input id="password" type="password" placeholder="Password" formControlName="password"
+                                                       class="form-control mb-3"
+                                                       [ngClass]="{ 'is-invalid': submitted && formFields.password.errors }"/>
+                  <div *ngIf="submitted && formFields.password.errors" class="invalid-feedback">
+                    <div *ngIf="formFields.password.errors.required">Password field is empty</div>
+                  </div>
+<hr>
+                  <button [disabled]="loading" class="btnLogin shadowed">
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                    Login
+                  </button>
+
+                  <div *ngIf="error" class="invalid-feedback">{{error}}</div>
+                </div>
+              </form>
+              <button [disabled]="formFields.username.errors" (click)="forgotPassword()" class="btn btn-link form-control">Reset your password</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

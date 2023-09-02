@@ -1,0 +1,43 @@
+<div class="container-user-dashboard" *ngIf="userGames">
+  <div class="row align-items-center mt-3">
+    <div class="col-auto text-center mr-2">
+    </div>
+  </div>
+  <div class="row mr-2 ml-2 bg-blue shadowed">
+    <div class="col-sm-3 text-center bg-blue">Title</div>
+    <div class="col-sm-3 text-center bg-blue">Developers</div>
+    <div class="col-sm-3 text-center bg-blue">Return date</div>
+    <div class="col-sm-3 text-center bg-blue">
+      Return / View
+    </div>
+  </div>
+
+
+  <div
+    [ngClass]="{'border-danger': rental.generatedPenalty == true,'border-success': rental.generatedPenalty == false }"
+    *ngFor="let rental of userGames | paginate: { id: 'userGridPagination',itemsPerPage: 5, currentPage: p,totalItems: nrOfElements}"
+    class="row m-2 border  rounded shadowed">
+    <div class="col-sm text-center my-auto">
+      {{rental.game.title}}
+    </div>
+    <div class="col-sm text-center my-auto">
+      <div class="d-flex flex-row justify-content-center">
+        <div id="developers" *ngFor="let developer of rental.game.developers; let isLast=last" class="d-flex d-inline-flex"
+             style="white-space:pre">{{developer.name}}{{isLast ? '' : ', '}}</div>
+      </div>
+    </div>
+    <div class="col-sm text-center my-auto">
+      {{rental.return_date}}
+    </div>
+    <div class="col-sm text-center ">
+      <button [disabled]="rental.generatedPenalty==true" class="btn btn-rounded btn-outline-info btn-secondary my-4 waves-effect z-depth-0" style="background-color: white" (click)="returnRentedGame(rental)">
+        Return
+      </button>
+      <button class="btn btn-rounded btn-outline-info btn-secondary my-4 waves-effect z-depth-0" style="background-color: white" (click)="goToPage(rental.game.id)">View game</button>
+    </div>
+  </div>
+  <pagination-controls maxSize="5" responsive="true" id="userGridPagination"
+                       (pageChange)="pageGridChanged($event)"></pagination-controls>
+</div>
+
+

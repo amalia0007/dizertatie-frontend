@@ -1,0 +1,97 @@
+<app-navbar></app-navbar>
+
+<div class="container-fluid shadowed p-3  mt-3 bg-white rounded">
+
+  <div class="row">
+
+
+
+    <div class="col-lg-7">
+      <div class="row align-items-center">
+
+        <div class="col">
+<!--          <button id="showGameStatus" class="btn m-2 btn-rounded btn-outline-info btn-secondary my-4 waves-effect z-depth-0" style="background-color: white"-->
+<!--                  routerLink="/game-status">Stock analysis-->
+<!--          </button>-->
+<!--          <button id="showTrend" class="btn btn-rounded btn-outline-info btn-secondary my-4 waves-effect z-depth-0" style="background-color: white"-->
+<!--                  routerLink="/rent-chart">Trending-->
+<!--          </button>-->
+        </div>
+
+      </div>
+
+      <div class="row align-items-center mt-3">
+
+      <div class="col-sm ml-2 mr2 mb-2">
+        <input [(ngModel)]="value" class="form-control" type="text" placeholder="Search game" aria-label="Search game"
+               (ngModelChange)="inputSearchChanged()">
+      </div>
+      </div>
+
+      <div class="row mr-2 ml-2 shadowed " style="background-color: papayawhip">
+        <div class="col-sm-3 text-center ">G a m e s</div>
+        <div class="col-sm-3 text-center "></div>
+        <div class="col-sm-6 text-center ">
+
+        </div>
+      </div>
+
+      <div
+        *ngFor="let game of games | paginate: { id: 'gridPagination',itemsPerPage: 5, currentPage: p,totalItems: nrOfElements}"
+        class="row m-2 border shadowed bg-white rounded">
+        <div class="col-sm-3 text-center my-auto">
+          {{game.title}}
+        </div>
+        <div class="col-sm-3 text-center my-auto">
+          <div *ngFor="let developer of game.developers; let isLast=last" class="d-inline-flex"
+               style="white-space:pre">{{developer.name}}{{isLast ? '' : ', '}}</div>
+        </div>
+        <div class="col-sm-6 text-center ">
+          <button (click)="showDetails(game)" class="btn m-2 btn-rounded btn-outline-info btn-secondary my-4 waves-effect z-depth-0" style="background-color: white">Show details</button>
+          <button (click)="editGame(game)" class="btn btn-rounded btn-outline-info btn-secondary my-4 waves-effect z-depth-0" style="background-color: white">Edit</button>
+          <button (click)="deleteGameDialog(game)" class="btn m-2 btn-outline-info btn-secondary my-4 waves-effect z-depth-0" style="background-color: white">Delete</button>
+        </div>
+      </div>
+
+      <div class="col-auto text-center mr-2">
+        <pagination-controls maxSize="5" responsive="true" id="gridPagination"
+                             (pageChange)="pageGridChanged($event)"></pagination-controls>
+      </div>
+
+
+      <app-users-dashboard (fullUserEventEmitter)="userCaptured($event)"
+                           (userEmitted)="userEmitted($event)"></app-users-dashboard>
+
+      <button class="btn btn-rounded m-2 btn-outline-info btn-secondary my-4 waves-effect z-depth-0" style="background-color: white" (click)="addFlag()">Add game
+      </button>
+
+      <button id="showTrend" class="btn btn-rounded btn-outline-info btn-secondary my-4 waves-effect z-depth-0" style="background-color: white"
+              routerLink="/rent-chart">Trending
+      </button>
+
+      <app-upload-game *ngIf="addGameActivated" (added)="eventCaptured($event)" [editedGame]="game"></app-upload-game>
+
+    </div>
+
+
+    <div class="col-lg-5">
+      <button id="showGameStatus" class="btn m-2 btn-rounded btn-outline-info btn-secondary my-4 waves-effect z-depth-0" style="background-color: white"
+              routerLink="/game-status">Stock analysis
+      </button>
+
+
+      <app-game-details *ngIf="selectedGame" [selectedGames]="selectedGame"
+                        (ratingDeleted)="ratingDeleted($event)"></app-game-details>
+      <br>
+      <app-user-details *ngIf="selectedUser" [selectedUser]="selectedUser"></app-user-details>
+
+    </div>
+
+    <div class="col-auto text-center">
+
+    </div>
+
+
+  </div>
+</div>
+

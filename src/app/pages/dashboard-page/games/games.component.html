@@ -1,0 +1,26 @@
+<div class="table-container">
+  <table class="table">
+    <thead class="thead-dark">
+    <tr >
+      <th scope="col">Id</th>
+      <th scope="col">Serial key</th>
+      <th scope="col">Game Title</th>
+      <th scope="col">Developers</th>
+      <th scope="col">Publisher</th>
+      <th scope="col">Year of release</th>
+      <th scope="col">Category</th>
+    </tr>
+    </thead>
+    <tbody *ngFor="let game of games ">
+    <tr scope="row">
+      <td>{{game.id}} </td>
+      <td>{{game.idSerial}} </td>
+      <td>{{game.title}} </td>
+      <td>{{game.developers}} </td>
+      <td>{{game.gameStudio}}</td>
+      <td>{{game.year}}</td>
+      <td>{{game.categories}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

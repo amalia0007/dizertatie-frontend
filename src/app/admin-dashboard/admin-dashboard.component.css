@@ -1,0 +1,28 @@
+@media screen and (max-width: 600px) {
+  .gamesTableHeader {
+    display: none;
+  }
+}
+
+.container-fluid{
+  margin-top: 5px;
+  width: 95%;
+}
+
+pagination-controls /deep/ .ngx-pagination {
+  margin-bottom: -2px!important;
+  align-self: center;
+  align-items: center;
+}
+
+pagination-controls ::ng-deep .ngx-pagination .current{
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  background-color: #4096e9;
+}
+
+pagination-controls ::ng-deep .ngx-pagination{
+  margin-left: 0;
+  padding-inline-start: 0!important;
+}
+
+

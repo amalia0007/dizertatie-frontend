@@ -1,0 +1,258 @@
+<app-navbar></app-navbar>
+
+
+<div class="container my-5">
+  <div class="row">
+    <div class="col-md-10 col-lg-8 mx-auto">
+
+
+      <!-- Section: Block Content -->
+      <section>
+
+        <!-- Card -->
+        <div class="card testimonial-card">
+
+          <!-- Background color -->
+          <div class="card-up card-image"
+               style="background-image: url('../../../assets/images/200124_Vignette_Web_Detail.jpg');">
+            <div class="rgba-black-strong h-100 p-3 white-text">
+              <hr>
+              <hr>
+              <hr>
+            </div>
+          </div>
+          <p></p>
+          <!-- Avatar -->
+          <div class="avatar mx-auto white">
+            <!--            <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20%2823%29.jpg" class="rounded-circle" alt="woman avatar">-->
+            <img *ngIf="currentUser.img; else anotherImage" class="rounded-circle mb-3 imgShadow"
+                 [src]="'data:image/jpeg;base64,'+currentUser.img.pic" width="400" height="400">
+            <ng-template #anotherImage>
+              <img class="rounded-circle mb-2 imgShadow" src="../../../assets/images/no-photo-profile.png" width="300"
+                   height="300">
+            </ng-template>
+
+          </div>
+
+          <!-- Content -->
+          <div class="card-body px-3 py-4">
+            <div class="row">
+              <div class="col-sm-4 text-center">
+                <p class="font-weight-bold mb-0">First name</p>
+                <p class="small text-uppercase mb-0">{{currentUser.firstName}}</p>
+              </div>
+              <div class="col-sm-4 text-center border-left border-right">
+                <p class="font-weight-bold mb-0">Last name</p>
+                <p class="small text-uppercase mb-0">{{currentUser.lastName}}</p>
+              </div>
+              <div class="col-sm-4 text-center">
+                <p class="font-weight-bold mb-0">Company</p>
+                <p class="small text-uppercase mb-0">{{currentUser.company.name}}</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!-- Card -->
+
+      </section>
+      <!-- Section: Block Content -->
+
+
+    </div>
+  </div>
+</div>
+
+
+<div class="container-fluid">
+  <!--  <h2 class="display-2 mt-5 mb-5 text-center">Work hard, play harder!</h2>-->
+  <div class="d-flex row text-center justify-content-b" *ngIf="currentUser">
+    <div class="d-flex flex-column flex-sm-fill align-items-center">
+
+      <div class="d-flex flex-row">
+        <button [innerHTML]="showRented?'Hide currently playing':'Show currently playing'"
+                class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0"
+                (click)="showRentedGames()" style="margin:5px"></button>
+
+        <button [innerHTML]="!showCategoryModule?'Show favorite categories':'Hide favorite categories'"
+                class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0"
+                (click)="showCategoryEditModule()" style="margin:5px"></button>
+
+        <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" (click)="editAccount()">
+          Edit account
+        </button>
+      </div>
+      <p></p>
+
+      <div style="text-align: left">
+
+        <p><b class="" [ngStyle]="{'color':currentUser.penalties.length < 2 ? 'green':'red'}">
+          <b>Account red flags</b>: {{currentUser.penalties.length}}
+        </b></p>
+      </div>
+      <p></p>
+      <p></p>
+    </div>
+    <div class="d-flex flex-sm-column  flex-sm-fill" *ngIf="showRented">
+      <app-rent-list [currentUser]="currentUser"></app-rent-list>
+    </div>
+
+
+    <div class="d-flex flex-sm-row  flex-sm-fill text-left" *ngIf="showCategoryModule">
+      <!--      <div class="example-container">-->
+      <!--        <h5>Available categories</h5>-->
+
+      <!--        <div style="height: 305px"-->
+      <!--             cdkDropList-->
+      <!--             #todoList="cdkDropList"-->
+      <!--             [cdkDropListData]="available"-->
+      <!--             [cdkDropListConnectedTo]="[doneList]"-->
+      <!--             class="example-list  overflow-auto scrollbar-custom-style shadowed"-->
+      <!--             (cdkDropListDropped)="drop($event)">-->
+      <!--          <div class="card border border-info card-body m-2 border-primary shadowed" *ngFor="let item of available" cdkDrag>{{item}}</div>-->
+      <!--        </div>-->
+      <!--      </div>-->
+
+      <!--      <div class="example-container">-->
+      <!--        <h5>Favorite categories</h5>-->
+
+      <!--        <div style="height: 305px"-->
+      <!--             cdkDropList-->
+      <!--             #doneList="cdkDropList"-->
+      <!--             [cdkDropListData]="selected"-->
+      <!--             [cdkDropListConnectedTo]="[todoList]"-->
+      <!--             class="example-list  overflow-auto scrollbar-custom-style shadowed"-->
+      <!--             (cdkDropListDropped)="drop($event)">-->
+      <!--          <div class="card border border-secondary card-body m-2 border-success shadowed" *ngFor="let item of selected" cdkDrag>{{item}}</div>-->
+      <!--        </div>-->
+
+      <!--        <div class="text-right">-->
+      <!--          <button class="btn btn-rounded btn-outline-info btn-secondary my-4 waves-effect z-depth-0 shadowed align-self-center" style="background-color: white"  (click)="updateFavCategories()">Update</button>-->
+      <!--        </div>-->
+      <!--      </div>-->
+
+      <div class="example-container">
+        <p class="font-weight-bold mb-0">Update favorite categories:</p>
+        <hr>
+        <kendo-multiselect [data]="allCategories" placeholder="Select categories..."
+                           [(ngModel)]="selected"></kendo-multiselect>
+
+        <button
+          class="btn btn-rounded btn-outline-info btn-secondary my-4 waves-effect z-depth-0 shadowed align-self-center"
+          style="background-color: white" (click)="updateFavCategories()">Update
+        </button>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- Footer -->
+<footer class="page-footer font-small mdb-color lighten-3 pt-4">
+
+  <!-- Footer Links -->
+  <div class="container text-center text-md-left">
+    <div></div>
+    <br>
+    <br>
+    <!-- Grid row -->
+    <div class="row">
+
+      <!-- Grid column -->
+      <div class="col-md-4 col-lg-6 mr-auto my-md-4 my-0 mt-4 mb-1">
+
+
+        <!-- Content -->
+        <h5 class="font-weight-bold text-uppercase mb-4">Work hard, play harder</h5>
+        <p>We believe in a passionate community and the power of teamwork.</p>
+        <p>Our belief is that we can create a circle of trust amongst employees. This is why we will keep our
+          content open to everyone and we impose almost no restrictions. We strive to improve the workplace!</p>
+
+      </div>
+      <!-- Grid column -->
+
+      <hr class="clearfix w-100 d-md-none">
+
+      <!-- Grid column -->
+      <div class="col-md-2 col-lg-2 mx-auto my-md-4 my-0 mt-4 mb-1">
+
+        <!-- Links -->
+        <h5 class="font-weight-bold text-uppercase mb-4">About</h5>
+
+        <ul class="list-unstyled">
+          <li>
+            <p>
+              <a [routerLink]="['partners']" (click)="seeCompanies()" class="  ">
+                <h5 style="">Partners <i class="fa fa-angle-double-right"></i></h5>
+              </a>            </p>
+          </li>
+          <li>
+            <p>
+<!--              <a href="#!">ABOUT US</a>-->
+            </p>
+          </li>
+        </ul>
+
+      </div>
+      <!-- Grid column -->
+
+      <hr class="clearfix w-100 d-md-none">
+
+      <!-- Grid column -->
+      <div class="col-md-4 col-lg-3 mx-auto my-md-4 my-0 mt-4 mb-1">
+
+        <!-- Contact details -->
+        <h5 class="font-weight-bold text-uppercase mb-4">Address</h5>
+
+        <ul class="list-unstyled">
+          <li>
+            <p>
+              <i class="fa fa-home mr-3"></i> Bucharest, Romania</p>
+          </li>
+          <li>
+            <p>
+              <i class="fa fa-envelope mr-3"></i> dizertatie2023@gmail.com</p>
+          </li>
+          <li>
+            <p>
+              <i class="fa fa-phone mr-3"></i> + 07 288 967 98</p>
+          </li>
+
+        </ul>
+
+      </div>
+      <!-- Grid column -->
+
+      <hr class="clearfix w-100 d-md-none">
+
+      <!-- Grid column -->
+      <div class="col-md-2 col-lg-2 text-center mx-auto my-4">
+
+      </div>
+      <!-- Grid column -->
+
+    </div>
+    <!-- Grid row -->
+
+  </div>
+  <!-- Footer Links -->
+
+
+</footer>
+<!-- Footer -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+

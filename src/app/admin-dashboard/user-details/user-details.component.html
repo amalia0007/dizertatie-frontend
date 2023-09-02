@@ -1,0 +1,142 @@
+<div class="content-game-detail card p-3 bg-white rounded sticky-top">
+  <div class="row">
+    <div class="col-sm-auto">
+      <img class="shadowed rounded-circle" *ngIf="selectedUser.img; else noPhoto"
+           [src]="'data:image/jpeg;base64,'+selectedUser.img.pic" height="250">
+      <ng-template #noPhoto>
+        <img class="shadowed rounded-circle" src="../../../assets/images/no-profile-picture.jpg" height="250">
+      </ng-template>
+    </div>
+    <div class="col-sm">
+      <h3>{{selectedUser.firstName + " " + selectedUser.lastName}}</h3>
+      <div>
+        <label class="font-weight-bold" for="email" style="white-space: pre">Email: </label>
+        <div id="email" class="d-inline-flex" style="white-space:pre">{{selectedUser.email}}</div>
+      </div>
+      <div>
+        <label class="font-weight-bold" for="company" style="white-space: pre">Company: </label>
+        <div id="company" class="d-inline-flex" style="white-space:pre">{{selectedUser.company.name}}</div>
+      </div>
+      <div>
+        <label class="font-weight-bold" for="enabled" style="white-space: pre">Email address confirmed: </label>
+        <div id="enabled" class="d-inline-flex" style="white-space:pre">{{selectedUser.enabled}}</div>
+      </div>
+      <div>
+        <label class="font-weight-bold" for="admin" style="white-space: pre">Admin rights: </label>
+        <div id="admin" class="d-inline-flex" style="white-space:pre">{{selectedUser.admin}}</div>
+      </div>
+      <div>
+        <label class="font-weight-bold" for="banned" style="white-space: pre">Banned account: </label>
+        <div id="banned" class="d-inline-flex" style="white-space:pre">{{selectedUser.banned}}</div>
+      </div>
+      <div *ngIf="selectedUser.banned && selectedUser.banUntil != null">
+        <label class="font-weight-bold" for="role" style="white-space: pre">Banned until: </label>
+        <div id="role" class="d-inline-flex" style="white-space:pre">{{selectedUser.banUntil}}</div>
+      </div>
+      <div>
+        <label class="font-weight-bold" for="permission" style="white-space: pre">Permissions: </label>
+        <div id="permission" class="d-inline-flex" style="white-space:pre">{{selectedUser.roles[0].description}}</div>
+      </div>
+
+      <div>
+        <label class="font-weight-bold" for="penalty" style="white-space: pre">Red flags: </label>
+        <div id="penalty" *ngFor="let penalty of selectedUser.penalties; let isLast=last" class="d-inline-flex">
+          <button (click)="removePenalty(selectedUser, penalty.id)" class="btn btn-danger btn-sm mr-1 mt-1">{{"Delete " + penalty['penaltyAddedDate']}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!selectedUser.admin" class="row">
+    <div class="col-sm-auto mt-2 d-flex d-inline-flex">
+
+      <button *ngIf="!selectedUser.enabled" id="enable" class="btn btn-rounded btn-outline-info btn-secondary my-4 waves-effect z-depth-0"
+              (click)="activate()">Enable
+      </button>
+
+      <button id="makeAdmin"
+              class="btn btn-rounded btn-outline-info btn-secondary my-4 waves-effect z-depth-0" style="background-color: white" (click)="makeAdmin()">Promote to admin
+      </button>
+
+      <div class="divider"></div>
+
+      <button [innerHTML]="selectedUser.banned?'Remove ban':'Ban account'" id="banButton"
+              class="btn btn-rounded btn-outline-info btn-secondary my-4 waves-effect z-depth-0" style="background-color: white" (click)="banOrUnBan()">Ban
+      </button>
+
+      <div class="divider"></div>
+
+      <button id="addPenalty"
+              class="btn btn-rounded btn-outline-info btn-secondary my-4 waves-effect z-depth-0" style="background-color: white" (click)="addPenalty()">Add red flag
+      </button>
+
+      <div class="divider"></div>
+      <div class="divider"></div>
+
+      <form  class="form-inline">
+        <div class="form-group">
+          <div class="input-group input-group-sm">
+            <input class="form-control datePicker shadowed" placeholder="Ban until..."
+                   name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker" (dateSelect)="onDateSelected()">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary btn-sm calendar shadowed" (click)="d.toggle()"
+                      type="button"></button>
+            </div>
+          </div>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+
+  <div class="container-user-dashboard" *ngIf="nrOfElements">
+    <div class="row align-items-center mt-3">
+      <div class="col-auto text-center mr-2">
+      </div>
+    </div>
+    <div class="row mr-2 ml-2 shadowed " style="background-color: papayawhip">
+      <div class="col-sm-3 text-center ">Title</div>
+      <div class="col-sm-4 text-center ">Developers</div>
+      <div class="col-sm-3 text-center ">Return date</div>
+      <div class="col-sm-2 text-center ">
+        Return
+      </div>
+    </div>
+
+
+    <div
+      [ngClass]="{'border-danger': rent.generatedPenalty == true,'border-success': rent.generatedPenalty == false }"
+      *ngFor="let rent of userGames | paginate: { id: 'userListGridPagination',itemsPerPage: 5, currentPage: p,totalItems: nrOfElements}"
+      class="row m-2 border  rounded ">
+      <div class="col-sm-3 text-center my-auto">
+        {{rent.game.title}}
+      </div>
+<!--      <div class="col-sm-4 text-center my-auto">-->
+<!--        <div *ngFor="let dev of rent.game.developers; let isLast=last" class="d-inline-flex"-->
+<!--             style="white-space:pre">{{dev.name}}{{isLast ? '' : ', '}}</div>-->
+<!--      </div>-->
+
+      <div class="col-sm-4 text-center my-auto">
+        <div id="developers" *ngFor="let developer of rent.game.developers; let isLast=last" class="d-flex d-inline-flex"
+             style="white-space:pre">{{developer.name}}{{isLast ? '' : ', '}}</div>
+      </div>
+
+      <div class="col-sm-3 text-center my-auto">
+        {{rent.return_date}}
+      </div>
+      <div class="col-sm-2 text-center ">
+        <button [disabled]="rent.generatedPenalty==true && !currentUser.admin" class="btn btn-rounded btn-outline-info btn-secondary my-4 waves-effect z-depth-0" style="background-color: white"
+                (click)="returnRentedGames(rent)">
+          Return
+        </button>
+      </div>
+    </div>
+    <div class="text-center ml-0">
+      <pagination-controls id="userListGridPagination"
+                           (pageChange)="pageGridChanged($event)"></pagination-controls>
+    </div>
+  </div>
+
+
+</div>
+

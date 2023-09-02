@@ -1,0 +1,122 @@
+<!-- Card Light -->
+<div class="card">
+
+  <!-- Card image -->
+  <div class="view overlay">
+    <!--    <img class="card-img-top"-->
+    <!--         src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20%28131%29.jpg" alt="Card image cap">-->
+
+    <div *ngIf="game.img, else nonImg">
+      <img class="card-img-top" [src]="'data:image/jpeg;base64,'+game.img.pic" height="300">
+    </div>
+    <ng-template #nonImg>
+      <img class="card-img-top" src="https://abeon-hosting.com/images/default-png-9.png" height="400" width="200">
+    </ng-template>
+
+    <a>
+      <div class="mask rgba-white-slight"></div>
+    </a>
+  </div>
+
+  <!-- Card content -->
+  <div class="card-body">
+
+    <!-- Social shares button -->
+    <!--    <a class="activator waves-effect waves-light mr-4"><i class="fa fa-share-alt"></i></a>-->
+    <!-- Title -->
+    <h4 class="card-title">{{game.title}}
+    </h4>
+
+
+<!--    <hr>-->
+    <!-- Text -->
+    <div *ngFor="let dev of game.developers; let isLast=last">
+      <div class="gameDev">Lead devs: {{dev.name}}{{isLast ? '' : ', '}}</div>
+    </div>
+    <hr>
+
+    <div class="rating d-flex flex-row align-items-center">
+      <div class="text-dark font-weight-bold">{{game.averageStars.toFixed(1)}}</div>
+      <ng-template #t let-fill="fill">
+        <span class="star" [class.full]="fill === 100">
+          <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+        </span>
+      </ng-template>
+      <ngb-rating [(rate)]="game.averageStars" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
+    </div>
+    <div class="d-flex d-flex flex-row justify-content-center">
+      <div class="text-center text-secondary"><i class="fa fa-eye" aria-hidden="true"></i>  {{game['rentalCount']}}
+      </div>
+    </div>
+    <!-- Link -->
+    <p></p>
+    <a [routerLink]="['game-details']" (click)="seeGameDetails(game.id)" class="black-text d-flex justify-content-end">
+      <h5 style="">Read more <i class="fa fa-angle-double-right"></i></h5>
+    </a>
+
+
+  </div>
+
+</div>
+<!-- Card Light -->
+
+
+<!--************************************************************************************************-->
+
+<!--<div class="card text-center">-->
+<!--  &lt;!&ndash; Imaginea jocului &ndash;&gt;-->
+<!--  <div class="flip-container">-->
+<!--    <div class="flipper">-->
+<!--      <div class="front">-->
+<!--        &lt;!&ndash; front content &ndash;&gt;-->
+<!--        <div *ngIf="game.img, else nonImg">-->
+<!--          <img class="shadowed" [src]="'data:image/jpeg;base64,'+game.img.pic" height="250">-->
+<!--        </div>-->
+<!--        <ng-template #nonImg>-->
+<!--          <img class="shadowed" src="https://abeon-hosting.com/images/default-png-9.png" height="400" width="200">-->
+<!--        </ng-template>-->
+<!--      </div>-->
+<!--      <div class="back">-->
+<!--        &lt;!&ndash; back content &ndash;&gt;-->
+<!--        <p class="gameDescription overflow-auto m-2 text-justify p-2 scrollbar-custom-style ">{{game.description}}</p>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  &lt;!&ndash; Detalii joc &ndash;&gt;-->
+<!--  <div class="card-body d-flex flex-column">-->
+<!--    <div class="d-flex d-flex flex-row justify-content-center">-->
+<!--      <h5 class="gameTitle">{{game.title}}</h5>-->
+<!--    </div>-->
+<!--    <div class="d-flex flex-row justify-content-center">-->
+<!--      <div *ngFor="let dev of game.developers; let isLast=last">-->
+<!--        <div class="gameDev">{{dev.name}}{{isLast ? '' : ', '}}</div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="rating d-flex flex-row align-items-center">-->
+<!--      <div class="text-dark font-weight-bold">{{game.averageStars.toFixed(1)}}</div>-->
+<!--      <ng-template #t let-fill="fill">-->
+<!--        <span class="star" [class.full]="fill === 100">-->
+<!--          <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;-->
+<!--        </span>-->
+<!--      </ng-template>-->
+<!--      <ngb-rating [(rate)]="game.averageStars" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>-->
+<!--    </div>-->
+<!--    <div class="d-flex d-flex flex-row justify-content-center">-->
+<!--      <div class="text-center text-secondary"><i class="fa fa-eye" aria-hidden="true"></i>  {{game['rentalCount']}}-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="mt-auto d-flex flex-row justify-content-center">-->
+<!--      <button class="btn btn-primary mr-2 shadowed" [routerLink]="['game-details']" (click)="seeGameDetails(game.id)">-->
+<!--        View details-->
+<!--      </button>-->
+<!--      <button [disabled]="game.stock==0||loading||user.penalties.length>1||userGame"-->
+<!--              [ngClass]="{'btn-danger': game.stock==0||user.penalties.length>1}"-->
+<!--              [innerHTML]="game.stock==0?'Out of stock':(user.penalties.length>1?'Blocked':'Play!')"-->
+<!--              class="btn btn-success shadowed" (click)="rent()">-->
+<!--        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>-->
+
+<!--      </button>-->
+<!--    </div>-->
+
+<!--  </div>-->
+<!--</div>-->

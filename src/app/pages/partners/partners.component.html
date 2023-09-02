@@ -1,0 +1,16 @@
+<app-navbar></app-navbar>
+
+<div class="card text-center mt-5 ml-5 mr-5">
+  <div class="card-header" style="font-size: 40px">
+    Companies we work with
+  </div>
+  <div class="card-body">
+    <h5 class="card-title" style="font-family: Helvetica Neue,serif">Thank you for your collaboration: </h5>
+    <p *ngFor="let company of companies" class="card-title" style="font-size: 30px">
+      {{ company.name }}
+    </p>
+  </div>
+  <div class="card-footer text-muted" style="font-size: 10px">
+    BIG-0
+  </div>
+</div>

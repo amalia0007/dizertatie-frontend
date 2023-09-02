@@ -1,0 +1,109 @@
+<app-navbar></app-navbar>
+<div class="container-fluid">
+
+  <div *ngIf="paginatedGames" class="container-widget row justify-content-around mt-3">
+    <app-homepage-icon
+      *ngFor="let game of games | paginate: { id: 'gridPagination',itemsPerPage: 8, currentPage: p,totalItems: paginatedGames.nrOfElements}"
+      (gameRented)="gameRented($event)" class="widget col-sm  align-items-center justify-content-center text-center align-content-center align-self-center"
+      [user]="currentUser" [game]="game"></app-homepage-icon>
+  </div>
+
+</div>
+<div class="text-center flex-row">
+  <pagination-controls id="gridPagination" (pageChange)="pageGridChanged($event)"></pagination-controls>
+</div>
+
+<!-- Footer -->
+<footer class="page-footer font-small mdb-color lighten-3 pt-4">
+
+  <!-- Footer Links -->
+  <div class="container text-center text-md-left">
+    <div></div>
+    <br>
+    <br>
+    <!-- Grid row -->
+    <div class="row">
+
+      <!-- Grid column -->
+      <div class="col-md-4 col-lg-6 mr-auto my-md-4 my-0 mt-4 mb-1">
+
+        <!-- Content -->
+        <h5 class="font-weight-bold text-uppercase mb-4">Work hard, play harder</h5>
+        <p>We believe in a passionate community and the power of teamwork.</p>
+        <p>Our belief is that we can create a circle of trust amongst employees. This is why we will keep our
+          content open to everyone and we impose almost no restrictions. We strive to improve the workplace!</p>
+
+      </div>
+      <!-- Grid column -->
+
+      <hr class="clearfix w-100 d-md-none">
+
+      <!-- Grid column -->
+      <div class="col-md-2 col-lg-2 mx-auto my-md-4 my-0 mt-4 mb-1">
+
+        <!-- Links -->
+        <h5 class="font-weight-bold text-uppercase mb-4">About</h5>
+
+        <ul class="list-unstyled">
+          <li>
+            <p>
+              <a [routerLink]="['partners']" (click)="seeCompanies()" class="  ">
+                <h5 style="">Partners <i class="fa fa-angle-double-right"></i></h5>
+              </a>
+            </p>
+          </li>
+          <li>
+            <p>
+            </p>
+          </li>
+        </ul>
+
+      </div>
+      <!-- Grid column -->
+
+      <hr class="clearfix w-100 d-md-none">
+
+      <!-- Grid column -->
+      <div class="col-md-4 col-lg-3 mx-auto my-md-4 my-0 mt-4 mb-1">
+
+        <!-- Contact details -->
+        <h5 class="font-weight-bold text-uppercase mb-4">Address</h5>
+
+        <ul class="list-unstyled">
+          <li>
+            <p>
+              <i class="fa fa-home mr-3"></i> Bucharest, Romania</p>
+          </li>
+          <li>
+            <p>
+              <i class="fa fa-envelope mr-3"></i> dizertatie2023@gmail.com</p>
+          </li>
+          <li>
+            <p>
+              <i class="fa fa-phone mr-3"></i>  + 07 288 967 98</p>
+          </li>
+
+        </ul>
+
+      </div>
+      <!-- Grid column -->
+
+      <hr class="clearfix w-100 d-md-none">
+
+      <!-- Grid column -->
+      <div class="col-md-2 col-lg-2 text-center mx-auto my-4">
+
+      </div>
+      <!-- Grid column -->
+
+    </div>
+    <!-- Grid row -->
+
+  </div>
+  <!-- Footer Links -->
+
+
+</footer>
+<!-- Footer -->
+
+

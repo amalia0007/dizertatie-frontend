@@ -1,0 +1,90 @@
+<div class="modal-header">
+  <h5 class="modal-title">{{ title }}</h5>
+  <button type="button" class="close" aria-label="Close" (click)="dismiss()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+
+
+</div>
+<div class="modal-body">
+
+  <form name="form" #f="ngForm" novalidate>
+
+    <div class="flex-grow-1">
+      <div class="input-group input-group-sm mb-1">
+        <input name="firstName" type="text" class="form-control" required aria-describedby="firstNameUserHelp"
+               placeholder="First Name"
+               [ngClass]="{ 'is-invalid': userFirstName.invalid && (userFirstName.dirty || userFirstName.touched)}"
+               [(ngModel)]="firstName" #userFirstName="ngModel"/>
+      </div>
+      <div class="input-group input-group-sm mb-1">
+        <div *ngIf="userFirstName.invalid && (userFirstName.dirty || userFirstName.touched)" class="invalid-feedback">
+          <div *ngIf="userFirstName.errors.required">
+            First name is required.
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="flex-grow-1">
+      <div class="input-group input-group-sm mb-1">
+        <input name="lastName" type="text" class="form-control" required aria-describedby="lastNameUserHelp"
+               placeholder="Last Name"
+               [ngClass]="{ 'is-invalid': userLastName.invalid && (userLastName.dirty || userLastName.touched)}"
+               [(ngModel)]="lastName" #userLastName="ngModel"/>
+      </div>
+      <div class="input-group input-group-sm mb-1">
+        <div *ngIf="userLastName.invalid && (userLastName.dirty || userLastName.touched)" class="invalid-feedback">
+          <div *ngIf="userLastName.errors.required">
+            Last name is required.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="flex-grow-1 d-flex flex-row justify-content-between align-content-between">
+      <div>
+            <span
+              class="btn btn-dark btn-file"
+              id="btnUpload"> {{btnValue}}
+              <input #fileInput class="btn btn-outline-info" id="gameImage" type="file" height="30px"
+                     (change)="fileChangeEvent($event)"/>
+              </span>
+        <img class="rounded-circle" [src]="this.imgURL" height="38" *ngIf="imgURL">
+
+        <div class="divider"></div>
+        <div class="divider"></div>
+        <p></p>
+        <button (click)="save()" [disabled]="f.form.invalid && this.selectedFile"
+                class="btn btn-rounded btn-outline-info btn-secondary my-4 waves-effect z-depth-0 shadowed align-self-center"
+                style="background-color: white">
+          Update
+        </button>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col-sm">
+        <image-cropper
+          [imageChangedEvent]="imageChangedEvent"
+          [maintainAspectRatio]="true"
+          [aspectRatio]="1"
+          [resizeToWidth]="300"
+          [roundCropper]=true
+          format="jpeg"
+          (imageCropped)="imageCropped($event)"
+          (imageLoaded)="imageLoaded()"
+          (cropperReady)="cropperReady()"
+          (loadImageFailed)="loadImageFailed()"
+        ></image-cropper>
+      </div>
+      <div class="col-sm text-center align-self-center" [style.width.px]="400">
+        <img class="rounded-circle" [src]="croppedImage"/>
+      </div>
+    </div>
+  </form>
+</div>

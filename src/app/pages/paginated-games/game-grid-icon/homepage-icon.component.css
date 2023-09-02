@@ -1,0 +1,115 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600,700);
+
+body {
+  margin: 50px;
+  text-align: center;
+  font-family: 'Open Sans', sans-serif;
+  background: #f2fbff;
+  width: 20rem;
+}
+
+.rating{
+  display: flex;
+  justify-content: space-around;
+  padding: 0 15% 0 15%;
+}
+em {
+  font-style: italic;
+}
+h1 {
+  font-size: 24px;
+  margin-bottom: 25px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+h2 {
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+ entire container, keeps perspective
+.flip-container {
+    margin-top: 20px;
+    perspective: 1000px;
+}
+/* flip the pane when hovered */
+.flip-container:hover .flipper, .flip-container.hover .flipper {
+    transform: rotateY(180deg);
+}
+
+.flip-container, .front, .back {
+	width: 320px;
+	height: 270px;
+  align-content: center;
+}
+
+/* flip speed goes here */
+.flipper {
+	transition: 0.6s;
+	transform-style: preserve-3d;
+	position: relative;
+}
+
+/* hide back of pane during swap */
+.front, .back {
+	backface-visibility: hidden;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+/* front pane, placed above back */
+.front {
+	z-index: 2;
+	/* for firefox 31 */
+	transform: rotateY(0deg);
+}
+
+/* back, initially hidden pane */
+.back {
+	transform: rotateY(180deg);
+}
+
+.card{
+  display: flex;
+  height: 550px;
+  width: 320px;
+  align-items: center;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  font-family: OCR A Std, monospace;
+
+}
+
+.gameDescription{
+  height: 270px;
+  text-indent: 20px;
+  font-family: OCR A Std, monospace;
+
+}
+
+.gameDev{
+  font-size: smaller;
+  white-space: pre;
+  font-family: OCR A Std, monospace;
+}
+
+.card-body{
+  width: 320px;
+  /*height: 700px;*/
+}
+
+.star {
+  position: relative;
+  display: inline-block;
+  font-size: 2rem;
+  color: #d3d3d3;
+}
+.full {
+  color: #E7711B;
+}
+.half {
+  position: absolute;
+  display: inline-block;
+  overflow: hidden;
+  color: #E7711B;
+}
+

@@ -1,0 +1,46 @@
+<div class="container-user-dashboard">
+<div class="row align-items-center mt-3">
+  <div class="col-sm ml-2 mr2 mb-2">
+    <input [(ngModel)]="value" class="form-control" type="text" placeholder="Search user" aria-label="Search user"
+           (ngModelChange)="inputSearchChanged()">
+  </div>
+<!--  <div class="col-auto text-center mr-2">-->
+<!--    <pagination-controls maxSize="5" responsive="true" id="userGridPagination"-->
+<!--                         (pageChange)="pageGridChanged($event)"></pagination-controls>-->
+<!--  </div>-->
+</div>
+  <div class="row mr-2 ml-2 shadowed" style="background-color: papayawhip">
+    <div class="col-sm-3 text-center ">U s e r s</div>
+    <div class="col-sm-3 text-center "></div>
+    <div class="col-sm-3 text-center "></div>
+    <div class="col-sm-3 text-center ">
+
+    </div>
+  </div>
+
+
+  <div
+    *ngFor="let user of users | paginate: { id: 'userGridPagination',itemsPerPage: 5, currentPage: p,totalItems: nrOfElements}"
+    class="row m-2 border shadowed bg-white rounded">
+    <div class="col-sm-3 text-center my-auto">
+      {{user.firstName}}
+    </div>
+    <div class="col-sm-3 text-center my-auto">
+      {{user.lastName}}
+    </div>
+    <div class="col-sm-3 text-center my-auto">
+      {{user.email}}
+    </div>
+    <div class="col-sm-3 text-center ">
+      <button (click)="showDetails(user)" class="btn btn-rounded btn-outline-info btn-secondary my-4 waves-effect z-depth-0" style="background-color: white">Show user</button>
+    </div>
+  </div>
+
+  <div class="col-auto text-center mr-2">
+    <pagination-controls maxSize="5" responsive="true" id="userGridPagination"
+                         (pageChange)="pageGridChanged($event)"></pagination-controls>
+  </div>
+
+</div>
+
+
